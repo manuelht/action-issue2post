@@ -11,7 +11,7 @@ inputs:
   dir:
     description: "the posts dir"
     required: true
-    default: "_posts"
+    default: "_issues"
   GITHUB_TOKEN:
     description: "secrets.GITHUB_TOKEN"
     required: true
@@ -39,12 +39,7 @@ runs:
         # useing '' to wrap the title to escapse backticks
         # and quates to wrap title in post body is to escapse backticks in jekyll building
         POST_TITLE=$(sed -E 's/[[:space:]|[:punct:]]/_/g' <<<'${{ inputs.title }}')
-        cat <<'EOF' > _posts/"${DATE:0:10}-${POST_TITLE}".md
-        ---
-        layout: post
-        title: "${{ inputs.title }}"
-        date: ${{ inputs.created_at }}
-        ---
+        cat <<'EOF' > _issues/"${POST_TITLE}".json
         ${{ inputs.body }}
         EOF
     - name: Push changes to repo
