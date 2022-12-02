@@ -39,7 +39,7 @@ runs:
         # useing '' to wrap the title to escapse backticks
         # and quates to wrap title in post body is to escapse backticks in jekyll building
         POST_TITLE=$(sed -E 's/[[:space:]|[:punct:]]/_/g' <<<'${{ inputs.title }}')
-        cat <<'EOF' > _issues/"${POST_TITLE}".json
+        cat <<'EOF' > "${{ inputs.dir }}"/"${POST_TITLE}".json
         ${{ inputs.body }}
         EOF
     - name: Push changes to repo
